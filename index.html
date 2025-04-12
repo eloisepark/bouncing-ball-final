@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bouncing Orange Ball</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+    canvas {
+      display: block;
+      background-color: #222;
+    }
+  </style>
+</head>
+<body>
+  <canvas id="canvas"></canvas>
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+
+    // Variables
+    let x = 100;
+    let y = 100;
+    let radius = 30;
+    let dx = 5;
+    let dy = 4;
+
+    // Function to draw the ball
+    function drawBall() {
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, Math.PI * 2);
+      ctx.fillStyle = 'orange';
+      ctx.fill();
+      ctx.closePath();
+    }
+
+    // Function to update ball position
+    function update() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      drawBall();
+
+      // Conditionals for bouncing
+      if (x + radius > canvas.width || x - radius < 0) {
+        dx = -dx;
+      }
+      if (y + radius > canvas.height || y - radius < 0) {
+        dy = -dy;
+      }
+
+      x += dx;
+      y += dy;
+
+      // Loop
+      requestAnimationFrame(update);
+    }
+
+    // Start the animation
+    update();
+  </script>
+</body>
+</html>
